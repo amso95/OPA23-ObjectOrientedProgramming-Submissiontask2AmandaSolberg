@@ -1,0 +1,10 @@
+1,Carrot,Vegetable,25
+2,Hay,Hey,25
+3,Grass,Grass,25
+4,Sunflower seed,Seed,25
+5,Sesame seed,Seed,25
+6,Cucumber,Vegetable,25
+7,Corn,Vegetable,25
+8,Apple,Fruit,25
+9,Pear,Fruit,25
+10,Grape,Fruit,25

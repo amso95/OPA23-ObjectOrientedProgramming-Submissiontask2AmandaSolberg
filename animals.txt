@@ -1,0 +1,10 @@
+1,Rooster,Bird,Hay/Grass/Vegetable
+2,Hen,Bird,Hay/Grass/Vegetable
+3,Chicken,Bird,Hay/Grass/Vegetable
+4,Fjord,Horse,Hay/Grass/Vegetable
+5,Falabella,Horse,Hay/Grass/Vegetable
+6,Swedish Warmblood,Horse,Hay/Grass/Vegetable
+7,Cow,Cow,Hay/Grass/Vegetable
+8,Sheep,Sheep,Hay/Grass/Vegetable
+9,Goat,Goat,Hay/Grass/Vegetable
+10,Llama,Llama,Hay/Grass/Vegetable
