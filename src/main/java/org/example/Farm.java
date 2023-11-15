@@ -9,9 +9,11 @@ public class Farm {
     private ArrayList<Crop> cropList = new ArrayList<>();
     private ArrayList<Animal> animalList = new ArrayList<>();
     public void mainMenu(){
-        Scanner scanner = new Scanner(System.in);
         CropManager cm = new CropManager();
+        Scanner scanner = new Scanner(System.in);
         AnimalManager am = new AnimalManager();
+        cm.cropList = cropList;
+        am.animalList = animalList;
         String input;
         boolean stayInLoop = true;
         while(stayInLoop) {
@@ -19,21 +21,17 @@ public class Farm {
             System.out.println("What do you want to do?");
             System.out.println("1.Go to crop menu.");
             System.out.println("2.Go to animal menu.");
-            System.out.println("9.Quit");
+            System.out.println("9.Save and Quit");
             input = scanner.nextLine();
             switch (input){
                 case "1":
                     cm.cropMenu();  //Go to crop menu
-                    cropList = cm.getCropList();    //Update list
                     break;
                 case "2":
                     cropList = cm.getCropList();    //Update list
                     am.animalMenu(cropList);    //Go to animal menu
-                    animalList = am.getAnimalList();    //Update list
                     break;
                 case"9":
-                    animalList = am.getAnimalList();    //Update list
-                    cropList = cm.getCropList();    //Update list
                     save(); //Save to files
                     System.out.println("Good bye!");
                     stayInLoop = false;
@@ -48,8 +46,7 @@ public class Farm {
     public Farm(){
         File cropFile = new File("crops.txt");
         File animalFile = new File("animals.txt");
-        boolean createCropsOrAnimals = false;
-        if(cropFile.exists()){  //If file exists read it and att objects to crop list
+        if(cropFile.exists()){  //If file exists read it and add objects to crop list
             try {
                 FileReader fr = new FileReader(cropFile);
                 BufferedReader br = new BufferedReader(fr);
@@ -95,9 +92,8 @@ public class Farm {
             cropList.add(new Crop("Apple","Fruit",25));
             cropList.add(new Crop("Pear","Fruit",25));
             cropList.add(new Crop("Grape","Fruit",25));
-            createCropsOrAnimals = true;
         }
-        if(animalFile.exists()){    //If file exists read it and att objects to animal list
+        if(animalFile.exists()){    //If file exists read it and add objects to animal list
             try {
                 FileReader fr = new FileReader(animalFile);
                 BufferedReader br = new BufferedReader(fr);
@@ -137,24 +133,20 @@ public class Farm {
             ArrayList<String> str = new ArrayList<>();
             str.add("Seed");
             str.add("Vegetable");
-            animalList.add(new Animal("Rooster","Bird",str));
-            animalList.add(new Animal("Hen","Bird",str));
-            animalList.add(new Animal("Chicken","Bird",str));
+            animalList.add(new Animal("Peter","Rooster",str));
+            animalList.add(new Animal("Anna","Hen",str));
+            animalList.add(new Animal("Monica","Chicken",str));
             str.clear();
             str.add("Hay");
             str.add("Grass");
             str.add("Vegetable");
-            animalList.add(new Animal("Fjord","Horse",str));
-            animalList.add(new Animal("Falabella","Horse",str));
-            animalList.add(new Animal("Swedish Warmblood","Horse",str));
-            animalList.add(new Animal("Cow","Cow",str));
-            animalList.add(new Animal("Sheep","Sheep",str));
-            animalList.add(new Animal("Goat","Goat",str));
-            animalList.add(new Animal("Llama","Llama",str));
-            createCropsOrAnimals = true;
-        }
-        if(createCropsOrAnimals){
-            save();
+            animalList.add(new Animal("Grappo","Horse",str));
+            animalList.add(new Animal("Grynet","Horse",str));
+            animalList.add(new Animal("Carl","Horse",str));
+            animalList.add(new Animal("Ross","Cow",str));
+            animalList.add(new Animal("Chandler","Sheep",str));
+            animalList.add(new Animal("Joe","Goat",str));
+            animalList.add(new Animal("Lisa","Llama",str));
         }
     }
 

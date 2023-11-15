@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CropManager {
-    private ArrayList<Crop> cropList = getCrops();
+    public ArrayList<Crop> cropList;
     Scanner scanner= new Scanner(System.in);
     public void cropMenu(){
         boolean stayInLoop = true;
-        cropList = getCrops();  //Update crop lst
+        //cropList = getCrops();  //Update crop lst
         while(stayInLoop) {
             System.out.println("Crop Menu");
             System.out.println("What do you want to do?");
             System.out.println("1.Add crop.");
             System.out.println("2.Remove crop.");
             System.out.println("3.List all crops.");
-            System.out.println("9.Save and Go back.");
+            System.out.println("9.Go back.");
             String input = scanner.nextLine();
             switch (input){
                 case "1":   //Add
@@ -29,18 +29,14 @@ public class CropManager {
                     viewCrops();
                     break;
                 case "9":   //Go back
-                    save(); //To keep the list of crops updated
                     stayInLoop = false;
                     break;
                 default:
                     System.out.println("Invalid input! Try again.");
                     break;
-
             }
         }
-
     }
-
     private void addCrop(){
         viewCrops();
         boolean cropIdFound = false;
@@ -103,7 +99,6 @@ public class CropManager {
         }
         cropList.add(addCrop);
     }
-
     private void removeCrop(){
         System.out.println("Write the id of what crop you want to remove.");
         viewCrops();
@@ -123,25 +118,6 @@ public class CropManager {
             System.out.println("Invalid input! Must be a number.");
         }
     }
-
-    private void save(){
-        File file = new File("crops.txt");  //Name of the file
-        try {
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter bw = new BufferedWriter(fw);
-            for(int i = 0; i < cropList.size(); i++){
-                bw.write(cropList.get(i).getCSV()); //Write crops in file in CSV format
-                if(i - 1 < cropList.size()){    //So the file don't end with new line
-                    bw.newLine();
-                }
-            }
-            bw.close(); //Done with writing to the file, let's close it
-        }
-        catch (IOException e){
-            System.out.println("Error, something went wrong.");
-        }
-    }
-
     private void viewCrops(){
         if(cropList.isEmpty()){ //List of crops is empty
             System.out.println("There is no crops to list.");
@@ -154,42 +130,6 @@ public class CropManager {
     private String getVariable(String variableMessage){
         System.out.println(variableMessage);
         return scanner.nextLine();
-    }
-    public ArrayList<Crop> getCrops(){  //Fill in the crop list with data from file: crops.txt
-        File file = new File("crops.txt");  //Name of the file
-        ArrayList<Crop> listOfCrops = new ArrayList<>();
-        try {
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line = br.readLine();
-            String[] tempArr;
-            String delimiter = ",";
-            int id = -1;
-            String name;
-            String cropType;
-            int quantity = -1;
-            while (line != null) {
-                tempArr = line.split(delimiter);    //Get line from the file and make it into crop objects
-                name = tempArr[1];
-                cropType = tempArr[2];
-                try {
-                    id = Integer.parseInt(tempArr[0]);
-                    quantity = Integer.parseInt(tempArr[3]);
-                } catch (Exception e) {
-                    System.out.println("Invalid input from file. Must be a number.");
-                }
-                if (id != -1 && quantity != -1) {
-                    Crop crop = new Crop(id, name, cropType, quantity);
-                    listOfCrops.add(crop);  //Add animal object to crop list
-                }
-                line = br.readLine();
-            }
-            br.close(); //Done with reading from the file, let's close it
-        } catch (IOException e) {
-            System.out.println("Error, something went wrong.");
-        }
-
-        return listOfCrops;
     }
     public ArrayList<Crop> getCropList(){
         return cropList;

@@ -12,7 +12,7 @@ public class Animal extends Entity{
     private String species;
     private ArrayList<String> acceptableCropTypes;
 
-    private static AtomicInteger idCounter = new AtomicInteger(1);
+    private static AtomicInteger idCounter = new AtomicInteger(1);  //An int value that may be updated atomically
 
     public Animal(String name, String species, ArrayList<String> acceptableCropTypes){
         super(idCounter.getAndIncrement(),name);
@@ -21,7 +21,9 @@ public class Animal extends Entity{
     }
     public Animal(int id, String name, String species, ArrayList<String> acceptableCropTypes){
         super(id,name);
-        idCounter.set(id + 1);
+        if(id >= idCounter.get()) {
+            idCounter.set(id + 1);
+        }
         this.species = species;
         this.acceptableCropTypes = acceptableCropTypes;
     }
@@ -73,14 +75,6 @@ public class Animal extends Entity{
                 for(String str: acceptableCropTypes){
                     if(cropList.get(id - 1).getCropType().equals(str)){
                         return cropList.get(id - 1);
-                        /*if(cropList.get(id - 1).takeCrop(1)){
-                            System.out.println(name + " ate 1 crop.");
-                            return cropList;
-                        }
-                        else {
-                            System.out.println("There is not enough crops to feed the animal.");
-                            return cropList;
-                        }*/
                     }
                 }
             }

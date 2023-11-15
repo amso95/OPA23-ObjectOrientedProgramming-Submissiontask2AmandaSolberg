@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Crop extends Entity{
     private String cropType;
     private int quantity;
-    private static AtomicInteger idCounter = new AtomicInteger(1);
+    private static AtomicInteger idCounter = new AtomicInteger(1);  //An int value that may be updated atomically
 
     public Crop(String name, String cropType, int quantity) {
         super(idCounter.getAndIncrement(), name);
@@ -14,7 +14,9 @@ public class Crop extends Entity{
     }
     public Crop(int id, String name, String cropType, int quantity) {
         super(id, name);
-        idCounter.set(id + 1);
+        if(id >= idCounter.get()) {
+            idCounter.set(id + 1);
+        }
         this.cropType = cropType;
         this.quantity = quantity;
     }
